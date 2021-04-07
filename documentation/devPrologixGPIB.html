@@ -1,0 +1,109 @@
+<!--?xml version="1.0" encoding="iso-8859-1"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>PrologixGPIB Instrument Support</title>
+    <meta name="generator" content="amaya 8.5, see
+      http://www.w3.org/Amaya/">
+  </head>
+  <body>
+    <h1>Introduction</h1>
+    <p>The Prologix GPIB-Ethernet Controller is a low cost (and low
+      performance) alternative to devices such as the Agilent E5810A.
+      This driver provides basic ASYN read/write operations. Serial
+      polls, parallel polls and SRQs are not supported.<br>
+    </p>
+    <p>The most up-to-date versions of the controller manual and
+      firmware at the time this module was released are included in the
+      documentation directory.&nbsp;&nbsp; Visit the Prologix web site
+      at <a href="http://prologix.biz/">http://prologix.biz/</a> to
+      check if more recent versions are available.<br>
+</p>
+<p>If the controller is configured to use DHCP to obtain a network 
+address its host name will likely be its ethernet address, with no 
+leading zeros and with dashes separating the individual bytes.&nbsp; For
+ example, a controller with ethernet address 00:21:69:01:02:E1 will be 
+given host name 0-21-69-1-2-e1.&lt;<i>domain</i>&gt;.<br>
+    </p>
+
+    <h1>Using the Prologix GPIB driver in an application</h1>
+    <p>Several files need minor modifications to use the Prologix GPIB
+      driver in an application.</p>
+    <ol>
+      <li>Add the full path to the PrologixGPIB directory to the
+        application <tt>configure/RELEASE</tt> file:<br>
+        <tt>PrologixGPIB=</tt><em>xxxx</em><tt>/modules/bus/PrologixGPIB/&lt;release&gt;</tt><br>
+        Where <tt>&lt;release&gt;</tt> is the release number of of the
+        Prologix GPIB driver.</li>
+      <li>Add instrument support to application database definition file<br>
+        The application database definition file must include the
+        database definition files for the Prologix GPIB driver and for
+        other support modules such as stream device. There are two ways
+        that this can be done:
+        <ul>
+          <li>If you are building your application database definition
+            file from an <em>xxx</em><tt>Include.dbd</tt> file you
+            include the additional database definitions in that file:<br>
+            <tt>include "base.dbd"</tt><br>
+            <tt>include "drvPrologixGPIB.dbd"<br>
+            </tt> <tt>include "stream.dbd"</tt><br>
+          </li>
+          <li>If you are building your application database definition
+            file from the application Makefile you specify the aditional
+            database definitions there:<br>
+            <em>xxx</em><tt>_DBD += base.dbd</tt><br>
+            <em>xxx</em><tt>_DBD += drvPrologixGPIB.dbd</tt><em></em><br>
+          </li>
+        </ul>
+      </li>
+      <li>Add the Prologix GPIB support library to the application<br>
+        You must link the Prologix GPIB support library and the ASYN
+        support library with the application. Add the following lines: <br>
+        <em>xxx</em><tt>_LIBS += drvPrologixGPIB</tt><br>
+        <em>xxx</em><tt>_LIBS += stream asyn</tt><br>
+        before the <br>
+        <em>xxx</em><tt>_LIBS += $(EPICS_BASE_IOC_LIBS)</tt><br>
+        &nbsp; to the application Makefile.</li>
+      
+<li>Configure the Prologix GPIB driver in the application startup
+        script:<br>
+        <tt>prologixGPIBConfigure("L0", "192.168.3.10:1234")<br>
+  </tt>The prologixGPIBConfigure command takes four arguments:<tt><br>
+  </tt><tt>prologixGPIBConfigure &lt;asynPortName&gt; &lt;host:port&gt; &lt;priority&gt; &lt;flags&gt;<br>
+  </tt>TCP port 1234 is used if the ":port" in the &lt;host:port&gt; 
+argument is missing. The &lt;priority&gt; argument sets the priority of 
+the ASYN worker thread.&nbsp; A zero or missing value sets the priority 
+to its default value of epicsThreadPriorityMedium.&nbsp;&nbsp; A missing
+ &lt;flags&gt; argument is taken to be 0.&nbsp; The least significant 
+bit of the &lt;flags&gt; argument disables auto-connection of the ASYN 
+port.&nbsp; The next-to-least significant bit enables diagnostic 
+messages on the underlying ASYN port created to communicate with the 
+controller.&nbsp; This is useful when diagnosing issues with the initial
+ configuration and setup commands sent to the controller.&nbsp; The ASYN
+ port name of the underlying ASYN port is the &lt;asynPortName&gt; 
+argument with the four characters "_TCP" appended.<br>
+<br>
+      </li>
+
+    </ol>
+    <h1>Installation and Building</h1>
+    After obtaining a copy of the distribution, it must be installed and
+    built for use at your site.
+    <ol>
+      <li>Create an installation directory for the module. The path name
+        of this directory should end with <tt>modules/bus/prologixgpib</tt>.</li>
+      <li>Place the distribution file into this directory.</li>
+      <li>Execute the following commands:<br>
+        <tt>cd modules/instrument/prologixgpib</tt><br>
+        <tt>gunzip prologixgpib&lt;release&gt;.tar.gz</tt><br>
+        <tt>tar xvf prologixgpib&lt;release&gt;.tar</tt><br>
+        <tt>cd &lt;release&gt;</tt><br>
+        Where <tt>&lt;release&gt;</tt> is the release number of of the
+        Prologix GPIB driver. </li>
+      <li>Edit the <tt>configure/RELEASE</tt> file and set the paths to
+        your installation of EPICS base and ASYN.</li>
+      <li>Execute <tt>make</tt> in the top level directory.</li>
+    </ol>
+  
+
+</body></html>

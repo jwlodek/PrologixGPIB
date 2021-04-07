@@ -1,0 +1,4 @@
+Several files are copied here from the Prologix web server.  The nfcli.tar.gz
+tarball contains python scripts for configuring the units and updating their
+firmware.  The gpib-eth-1.2-1.6.1.0.tar.gz tarball contains the current firmware
+as of the date that this EPICS support was created.

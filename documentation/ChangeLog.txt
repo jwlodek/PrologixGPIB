@@ -1,0 +1,38 @@
+2014-12-11  Eric Norum  <wenorum@lbl.gov>
+
+	* .hgtags:
+	Added tag R01-01 for changeset c573273d68b9
+	[c34a1c44bd7c] [tip]
+
+	* documentation/devPrologixGPIB.html:
+	Add configure notes.
+	[c573273d68b9] [R01-01]
+
+2013-11-02  Eric Norum  <wenorum@lbl.gov>
+
+	* PrologixGPIBSup/drvPrologixGPIB.c:
+	Change last argument to flags. Add flag to enable diagnostic I/O
+	messages right away -- to see connect messages, for example.
+	[0396a8745913]
+
+2013-11-01  Eric Norum  <wenorum@lbl.gov>
+
+	* Makefile, PrologixGPIBSup/Makefile,
+	PrologixGPIBSup/drvPrologixGPIB.c,
+	PrologixGPIBSup/drvPrologixGPIB.dbd,
+	PrologixGPIBtestApp/Db/Makefile, PrologixGPIBtestApp/Db/devSCPI.db,
+	PrologixGPIBtestApp/Db/devSCPI.proto, PrologixGPIBtestApp/Makefile,
+	PrologixGPIBtestApp/src/Makefile,
+	PrologixGPIBtestApp/src/PrologixGPIBtestMain.cpp, configure/CONFIG,
+	configure/CONFIG_SITE, configure/Makefile, configure/RELEASE,
+	configure/RULES, configure/RULES.ioc, configure/RULES_DIRS,
+	configure/RULES_TOP, documentation/PrologixGpibEthernetManual.pdf,
+	documentation/README, documentation/devPrologixGPIB.html,
+	documentation/gpib-eth-1.2-1.6.1.0.tar.gz,
+	documentation/nfcli.tar.gz, iocBoot/Makefile,
+	iocBoot/iocPrologixGPIBtestApp/Makefile,
+	iocBoot/iocPrologixGPIBtestApp/st.cmd, scripts/runEdmAsyn.sh,
+	scripts/setScan.sh:
+	Place code under mercurial control.
+	[7507dd0b5b1d]
+

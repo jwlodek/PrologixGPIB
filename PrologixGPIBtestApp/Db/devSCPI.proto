@@ -1,0 +1,29 @@
+ReplyTimeout = 2000;
+
+getIDN {
+    out "*IDN?";
+    in "%\$1[^\r\n]";
+    ExtraInput = Ignore;
+    @replyTimeout { disconnect; }
+}
+
+getString {
+    out "\$1";
+    in "%39[^\r\n]";
+    ExtraInput = Ignore;
+    @replyTimeout { disconnect; }
+}
+
+cmd {
+    out "\$1";
+}
+
+setD {
+    out "\$1 %d";
+}
+getD {
+    out "\$1?";
+    in "%d";
+    ExtraInput = Ignore;
+    @replyTimeout { disconnect; }
+}
